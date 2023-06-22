@@ -1,16 +1,13 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '2.7.13-SNAPSHOT'
+	id 'org.springframework.boot' version '2.7.11'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 	id "com.github.node-gradle.node" version '4.0.0'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-
-java {
-	sourceCompatibility = '11'
-}
+sourceCompatibility = '11'
 
 configurations {
 	compileOnly {
@@ -20,19 +17,13 @@ configurations {
 
 repositories {
 	mavenCentral()
-	maven { url 'https://repo.spring.io/milestone' }
-	maven { url 'https://repo.spring.io/snapshot' }
 }
 
 dependencies {
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-//	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.1'
 	compileOnly 'org.projectlombok:lombok'
-//	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//	testImplementation 'org.springframework.security:spring-security-test'
 }
 
 tasks.named('test') {
@@ -43,11 +34,11 @@ tasks.named('test') {
 // 지정된 버전의 node를 다운로드하게 만드는 설정
 // $ gradle npmSetup 을 실행하여 node 프로그램을 설치한다.
 
- node {
-  version = '18.16.0'
-   npmVersion = '9.5.1'
- download = true
- }
+// node {
+//   //version = '18.16.0'
+//   //npmVersion = '9.5.1'
+//   download = true
+// }
 
 
 task appNpmInstall(type: NpmTask) {
@@ -57,28 +48,29 @@ task appNpmInstall(type: NpmTask) {
   args = ["install"]
 }
 
+
 // React build 설정
 def reactAppDir = "$projectDir/src/main/reactjs"
-
-//sourceSets {
- // main {
- //   resources {
-  //    srcDirs = ["$webappDir/build", "$projectDir/src/main/resources"]
- //   }
- // }
-//}
-
+/*
+sourceSets {
+  main {
+    resources {
+      srcDirs = ["$webappDir/build", "$projectDir/src/main/resources"]
+    }
+  }
+}
+*/
 
 processResources {
   dependsOn "copyReactFile"
-  dependsOn "appNpmInstall"
+  //dependsOn "appNpmInstall"
 }
 
 
 task copyReactFile(type: Copy) {
     dependsOn "buildReact"
     from "$reactAppDir/build"
-    into "$buildDir/resources/main/static"
+    //into "$buildDir/resources/main/static"
 	  into "$projectDir/src/main/resources/static/"
 }
 
