@@ -60,13 +60,13 @@ task appNpmInstall(type: NpmTask) {
 // React build 설정
 def reactAppDir = "$projectDir/src/main/reactjs"
 
-sourceSets {
-  main {
-    resources {
-      srcDirs = ["$webappDir/build", "$projectDir/src/main/resources"]
-    }
-  }
-}
+//sourceSets {
+ // main {
+ //   resources {
+  //    srcDirs = ["$webappDir/build", "$projectDir/src/main/resources"]
+ //   }
+ // }
+//}
 
 
 processResources {
