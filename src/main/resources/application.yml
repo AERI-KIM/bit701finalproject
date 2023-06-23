@@ -1,2 +1,30 @@
 server:
   port: 9002
+
+  #port 설정
+
+     #mysql setting
+spring :
+  datasource:
+     driver-class-name: com.mysql.cj.jdbc.Driver
+         #    url: jdbc:mysql://localhost:3306/bit701?serverTimezone=Asia/Seoul
+         #내 클라우드 계정 
+     url: jdbc:mysql://db-g66md-kr.vpc-pub-cdb.ntruss.com:3306/bit701?serverTimezone=Asia/Seoul
+        # 강사님 클라우드 계쩡
+    # url: jdbc:mysql://db-g66k8-kr.vpc-pub-cdb.ntruss.com:3306/bit701?serverTimezone=Asia/Seoul
+     username: study
+     password: bit123!@#
+  servlet:
+    multipart:
+      max-file-size:
+       20MB
+       
+
+#mybatis
+mybatis:
+  type-aliases-package: Data.dto
+  mapper-locations:
+  - /Mapper/**/*.xml
+  
+  # ** 모든 하위폴더를 나타냄 
+    
