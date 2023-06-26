@@ -75,9 +75,9 @@ public class BoardController {
 	
 	@GetMapping("/list")
 	public Map<String, Object> list(@RequestParam(defaultValue = "1") int currentPage)
-	
 	{
-		System.out.println("list=>"+currentPage);
+		System.out.println("list>>"+currentPage);
+		
 		//페이징처리
         int totalCount;//총갯수
         int perPage=3;//한페이지당 출력할 글갯수
@@ -103,8 +103,8 @@ public class BoardController {
         startNum=(currentPage-1)*perPage;
         //각페이지당 출력할 번호
         no=totalCount-(currentPage-1)*perPage;
- 
-        List<BoardDto> list=boardService.getPageingList(startNum,perPage);
+       
+        List<BoardDto> list=boardService.getPageingList(startNum, perPage);
 
         //출력할 페이지번호들을 Vector에 담아서 보내기
         Vector<Integer> parr=new Vector<>();
@@ -123,7 +123,6 @@ public class BoardController {
         smap.put("totalPage",totalPage);
 
         return  smap;
-
 	}
 	
 	@DeleteMapping("/delete")

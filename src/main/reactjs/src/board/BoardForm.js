@@ -1,30 +1,29 @@
 import React, { useState } from 'react';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
-import { UploadFile } from '@mui/icons-material';
-import  Axios  from 'axios';
+import Axios from 'axios';
+
 function BoardForm(props) {
-    
     const [subject,setSubject]=useState('');
     const [photo,setPhoto]=useState('');
-    const [content,setContent]=useState(''); 
-    
-    const navi=useNavigate();
+    const [content,setContent]=useState('');
 
-    //이미지 경로 
+    const navi=useNavigate();
+    //이미지 경로
     const photoUrl=process.env.REACT_APP_BOARDURL;
-    //세션 스토리지에 저장된 아이디와 이름 가져오기 
+    //세션스토리지에 저장된 아이디와 이름 가져오기
     const myid=sessionStorage.myid;
     const myname=sessionStorage.myname;
 
     const onSubmitEvent=(e)=>{
-        e.prebentDefault();
-    }
+        e.preventDefault();
+        Axios.post("/board/insert",{myid,myname,subject,content})
+        .then(res=>{
+            //목록으로 이동 
+            navi("/board/list")
+        })
+            }
 
-
-        //한장 업로드
-        
-     
     //파일 업로드
     const onUploadEvent=(e)=>{
         const uploadFile=new FormData();
@@ -39,12 +38,11 @@ function BoardForm(props) {
         });
     }
 
-
-    return(
+    return (
         <div style={{marginLeft:'100px',width:'400px'}}>
             <form onSubmit={onSubmitEvent}>
                 <table className='table'>
-                <caption align="top"><b>게시판글쓰기</b></caption>
+                    <caption align="top"><b>게시판글쓰기</b></caption>
                     <tbody>
                         <tr>
                             <th style={{backgroundColor:'#ddd',width:'100px'}}>제목</th>
@@ -73,7 +71,6 @@ function BoardForm(props) {
                             </td>
                         </tr>
                     </tbody>
-
                 </table>
             </form>
             <img alt='' src={`${photoUrl}${photo}`} 

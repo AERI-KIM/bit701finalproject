@@ -15,7 +15,7 @@ public class BoardDto {
 	private String myid;
 	private String myname;
 	private String photo;
-	private String sebject;
+	private String subject;
 	private String content;
 	private int readcount;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Seoul")
